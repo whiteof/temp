@@ -10,6 +10,12 @@ use Appmonitor\Entity\ServerLog;
 
 class ApiController extends AbstractActionController
 {
+    private $UserModel;
+    
+    public function __construct($UserModel)
+    {
+        $this->UserModel = $UserModel;
+    }
     
     public function authAction()
     {
