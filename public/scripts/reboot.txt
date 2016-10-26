@@ -1,0 +1,1 @@
+This is the trigger file when placed into a specific directory on the Windows Server that is monitored by a frequently scheduled job, a script detecting the presence of this trigger file will execute reboot of this server.
