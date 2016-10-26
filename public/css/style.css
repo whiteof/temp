@@ -26,8 +26,27 @@ body {
     background-color: #57a900;
 }
 
-div.container a.navbar-brand > img {
-    display: inline;
-    margin-right: 4px;
-    margin-top: -2px;
+
+.index-page {
+    text-align: center;
+    padding-bottom: 30px;
+}
+.index-page .index-page-logo {
+    padding: 50px 0px 50px 0px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 50px;
+}
+.index-page .index-page-logo img {
+    max-width: 250px;
+    margin: auto;
+}
+.index-page .index-page-welcome h1 {
+    font-size: 24px;
+    color: #e87722;
+}
+footer {
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 200;
 }
