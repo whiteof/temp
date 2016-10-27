@@ -38,7 +38,7 @@ class User
     protected $title;
     /**
      * @ORM\ManyToMany(targetEntity="Server")
-     * @ORM\JoinTable(name="am_server_user",
+     * @ORM\JoinTable(name="appmonitor_server_user",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="server_id", referencedColumnName="id", unique=true)}
      * )
