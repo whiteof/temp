@@ -75,6 +75,7 @@ class ComposerStaticInit662dae7ec419ecadd15a560b6ab9a730
         ),
         'A' => 
         array (
+            'Appmonitor\\' => 11,
             'Application\\' => 12,
             'ApplicationTest\\' => 16,
         ),
@@ -264,6 +265,10 @@ class ComposerStaticInit662dae7ec419ecadd15a560b6ab9a730
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+        ),
+        'Appmonitor\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/module/Appmonitor/src',
         ),
         'Application\\' => 
         array (

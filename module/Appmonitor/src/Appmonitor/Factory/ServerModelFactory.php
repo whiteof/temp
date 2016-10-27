@@ -2,22 +2,21 @@
 
 namespace Appmonitor\Factory;
 
-use Appmonitor\Controller\ApiController;
-use Appmonitor\Model\UserModel;
+use Appmonitor\Model\ServerModel;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ApiControllerFactory implements FactoryInterface
+class ServerModelFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param null|array $options
-     * @return ApiController
+     * @return ServerModel
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $UserModel = $container->get(UserModel::class);
-        return new ApiController($UserModel);
+        $EntityManager = $container->get('doctrine.entitymanager.orm_default');
+        return new ServerModel($EntityManager);
     }
 }

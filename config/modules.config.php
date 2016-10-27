@@ -27,5 +27,5 @@ return [
     'Zend\Router',
     'Zend\Validator',
     'Application',
-    'Appmonitor'
+    'Appmonitor',
 ];

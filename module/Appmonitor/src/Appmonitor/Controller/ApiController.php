@@ -4,17 +4,26 @@ namespace Appmonitor\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+
 use Application\Model\User\LdapWCMC;
+
 use Appmonitor\Model\SmbclientModel;
 use Appmonitor\Entity\ServerLog;
+use Appmonitor\Model\UserModel;
+use Appmonitor\Model\ServerModel;
+use Appmonitor\Model\ServerLogModel;
 
 class ApiController extends AbstractActionController
 {
     private $UserModel;
+    private $ServerModel;
+    private $ServerLogModel;
     
-    public function __construct($UserModel)
+    public function __construct(UserModel $UserModel, ServerModel $ServerModel, ServerLogModel $ServerLogModel)
     {
         $this->UserModel = $UserModel;
+        $this->ServerModel = $ServerModel;
+        $this->ServerLogModel = $ServerLogModel;
     }
     
     public function authAction()
@@ -99,8 +108,7 @@ class ApiController extends AbstractActionController
             if(isset($post_data['cwid'])) {
                 if(!empty($post_data['cwid'])) {
                     
-                    $UserModel = $this->getServiceLocator()->get('Appmonitor\Model\UserModel');
-                    $User = $UserModel->getUserByCwid($post_data['cwid']);
+                    $User = $this->UserModel->getUserByCwid($post_data['cwid']);
                     $servers = array();
                     foreach($User->getServers() as $Server) {
                         $server = array(
@@ -148,11 +156,10 @@ class ApiController extends AbstractActionController
             if(isset($post_data['cwid'])) {
                 if(!empty($post_data['cwid'])) {
                     
-                    $UserModel = $this->getServiceLocator()->get('Appmonitor\Model\UserModel');
-                    $User = $UserModel->getUserByCwid($post_data['cwid']);
+                    $User = $this->UserModel->getUserByCwid($post_data['cwid']);
                     
-                    $ServerModel = $this->getServiceLocator()->get('Appmonitor\Model\ServerModel');
-                    $Server = $ServerModel->getItemByCode($post_data['code']);
+                    
+                    $Server = $this->ServerModel->getItemByCode($post_data['code']);
                     
                     $SmbclientModel = new SmbclientModel('//povm-apop01.med.cornell.edu/dropfile$', 'CUMC\svc_dropfile_W', '!0$,dr0pF!L3');
                     $result = "";
@@ -165,10 +172,8 @@ class ApiController extends AbstractActionController
                         $ServerLog->setUser($User);
                         $ServerLog->setServer($Server);
                         $ServerLog->setAction('Restart requested');
-                        $ServerLog->setCreatedAt(new \DateTime("now"));
-                        $EntityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-                        $EntityManager->persist($ServerLog);
-                        $EntityManager->flush($ServerLog);
+                        $ServerLog->setCreatedAt(new \DateTime("now"));                        
+                        $this->ServerLogModel->save($ServerLog);
                     }                    
                                                             
                     $response = array(
@@ -209,11 +214,10 @@ class ApiController extends AbstractActionController
             if(isset($post_data['code'])) {
                 if(!empty($post_data['code'])) {
                     
-                    $UserModel = $this->getServiceLocator()->get('Appmonitor\Model\UserModel');
-                    $User = $UserModel->getUserByCwid($post_data['cwid']);
+                    $User = $this->UserModel->getUserByCwid($post_data['cwid']);
                     
-                    $ServerModel = $this->getServiceLocator()->get('Appmonitor\Model\ServerModel');
-                    $Server = $ServerModel->getItemByCode($post_data['code']);
+                    
+                    $Server = $this->ServerModel->getItemByCode($post_data['code']);
                     
                     $SmbclientModel = new SmbclientModel('//povm-apop01.med.cornell.edu/dropfile$', 'CUMC\svc_dropfile_W', '!0$,dr0pF!L3');
                     
@@ -262,11 +266,9 @@ class ApiController extends AbstractActionController
             if(isset($post_data['code'])) {
                 if(!empty($post_data['code'])) {
                     
-                    $UserModel = $this->getServiceLocator()->get('Appmonitor\Model\UserModel');
-                    $User = $UserModel->getUserByCwid($post_data['cwid']);
+                    $User = $this->UserModel->getUserByCwid($post_data['cwid']);
                     
-                    $ServerModel = $this->getServiceLocator()->get('Appmonitor\Model\ServerModel');
-                    $Server = $ServerModel->getItemByCode($post_data['code']);
+                    $Server = $this->ServerModel->getItemByCode($post_data['code']);
                     
                     $log = array();
                     foreach($Server->getServerLogs() as $i => $ServerLog) {
