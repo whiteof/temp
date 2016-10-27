@@ -4,6 +4,8 @@ namespace Appmonitor\Factory;
 
 use Appmonitor\Controller\ApiController;
 use Appmonitor\Model\UserModel;
+use Appmonitor\Model\ServerModel;
+use Appmonitor\Model\ServerLogModel;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
@@ -18,6 +20,8 @@ class ApiControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $UserModel = $container->get(UserModel::class);
-        return new ApiController($UserModel);
+        $ServerModel = $container->get(ServerModel::class);
+        $ServerLogModel = $container->get(ServerLogModel::class);
+        return new ApiController($UserModel, $ServerModel, $ServerLogModel);
     }
 }
