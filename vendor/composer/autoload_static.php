@@ -32,6 +32,7 @@ class ComposerStaticInit662dae7ec419ecadd15a560b6ab9a730
             'Zend\\ModuleManager\\' => 19,
             'Zend\\Log\\' => 9,
             'Zend\\Loader\\' => 12,
+            'Zend\\Ldap\\' => 10,
             'Zend\\Json\\' => 10,
             'Zend\\InputFilter\\' => 17,
             'Zend\\I18n\\' => 10,
@@ -153,6 +154,10 @@ class ComposerStaticInit662dae7ec419ecadd15a560b6ab9a730
         'Zend\\Loader\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-loader/src',
+        ),
+        'Zend\\Ldap\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-ldap/src',
         ),
         'Zend\\Json\\' => 
         array (

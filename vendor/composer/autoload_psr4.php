@@ -24,6 +24,7 @@ return array(
     'Zend\\ModuleManager\\' => array($vendorDir . '/zendframework/zend-modulemanager/src'),
     'Zend\\Log\\' => array($vendorDir . '/zendframework/zend-log/src'),
     'Zend\\Loader\\' => array($vendorDir . '/zendframework/zend-loader/src'),
+    'Zend\\Ldap\\' => array($vendorDir . '/zendframework/zend-ldap/src'),
     'Zend\\Json\\' => array($vendorDir . '/zendframework/zend-json/src'),
     'Zend\\InputFilter\\' => array($vendorDir . '/zendframework/zend-inputfilter/src'),
     'Zend\\I18n\\' => array($vendorDir . '/zendframework/zend-i18n/src'),
