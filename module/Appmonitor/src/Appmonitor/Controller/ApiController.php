@@ -163,7 +163,7 @@ class ApiController extends AbstractActionController
                     
                     $SmbclientModel = new SmbclientModel('//povm-apop01.med.cornell.edu/dropfile$', 'CUMC\svc_dropfile_W', '!0$,dr0pF!L3');
                     $result = "";
-                    if (!$SmbclientModel->put(BASE_PATH.'/public/scripts/reboot.txt', 'reboot.txt')){
+                    if (!$SmbclientModel->put(getcwd().'/public/scripts/reboot.txt', 'reboot.txt')){
                         $result = "Failed to retrieve file.";
                         //var_dump($SmbclientModel->get_last_cmd_stdout());
                     }else {
