@@ -30,6 +30,10 @@ class Server
      */
     protected $code;
     /**
+     * @ORM\Column(name="restart_url", type="string", nullable=false)
+     */
+    protected $restartUrl;
+    /**
      * @ORM\OneToMany(targetEntity="ServerLog", mappedBy="server", fetch="LAZY")
      * @ORM\OrderBy({"createdAt" = "Desc"})
      **/
@@ -97,6 +101,23 @@ class Server
     {
         return $this->code;
     }
+
+    /**
+     * @param string $restartUrl
+     * @return Server
+     */
+    public function setRestartUrl($restartUrl)
+    {
+        $this->restartUrl = $restartUrl;
+        return $this;
+    }
+    /**
+     * @return string
+     */
+    public function getRestartUrl()
+    {
+        return $this->restartUrl;
+    }
     
     /**
      * @param array $serverLogs
@@ -129,6 +150,7 @@ class Server
         $this->ip = (!empty($data['ip'])) ? $data['ip'] : null;
         $this->title = (!empty($data['title'])) ? $data['title'] : null;
         $this->code = (!empty($data['code'])) ? $data['code'] : null;
+        $this->restartUrl = (!empty($data['restartUrl'])) ? $data['restartUrl'] : null;
         $this->serverLogs = (!empty($data['serverLogs'])) ? $data['serverLogs'] : null;
     }
     /*

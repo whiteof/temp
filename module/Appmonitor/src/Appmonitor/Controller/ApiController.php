@@ -150,7 +150,7 @@ class ApiController extends AbstractActionController
         
         $request = $this->getRequest();
         $response = array();
-        
+        $result = "Error.";
         if ($request->isPost()) {
             $post_data = $request->getPost();
             if(isset($post_data['cwid'])) {
@@ -160,29 +160,32 @@ class ApiController extends AbstractActionController
                     
                     
                     $Server = $this->ServerModel->getItemByCode($post_data['code']);
-                    
-                    $SmbclientModel = new SmbclientModel('//povm-apop01.med.cornell.edu/dropfile$', 'CUMC\svc_dropfile_W', '!0$,dr0pF!L3');
-                    $result = "";
-                    if (!$SmbclientModel->put(getcwd().'/public/scripts/reboot.txt', 'reboot.txt')){
-                        $result = "Failed to retrieve file.";
-                        //var_dump($SmbclientModel->get_last_cmd_stdout());
-                    }else {
-                        $result = "Restart request has been sent successfully.";
-                        $ServerLog = new ServerLog();
-                        $ServerLog->setUser($User);
-                        $ServerLog->setServer($Server);
-                        $ServerLog->setAction('Restart requested');
-                        $ServerLog->setCreatedAt(new \DateTime("now"));                        
-                        $this->ServerLogModel->save($ServerLog);
-                    }                    
-                                                            
+
+                    if($Server) {
+                        $SmbclientModel = new SmbclientModel($Server->getRestartUrl(), 'CUMC\svc_dropfile_W', '!0$,dr0pF!L3');
+                        $result = "";
+                        if (!$SmbclientModel->put(getcwd().'/public/scripts/reboot.txt', 'reboot.txt')){
+                            $result = "Failed to retrieve file.";
+                            //var_dump($SmbclientModel->get_last_cmd_stdout());
+                        }else {
+                            $result = "Restart request has been sent successfully.";
+                            $ServerLog = new ServerLog();
+                            $ServerLog->setUser($User);
+                            $ServerLog->setServer($Server);
+                            $ServerLog->setAction('Restart requested');
+                            $ServerLog->setCreatedAt(new \DateTime("now"));
+                            $this->ServerLogModel->save($ServerLog);
+                        }
+
+                    }
+
                     $response = array(
                         'response' => array(
                             'action' => 'restart',
                             'result' => $result
                         )
                     );
-                    
+
                 }
             }
         }else {
