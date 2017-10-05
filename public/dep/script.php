@@ -19,7 +19,7 @@
     // Open the file using the HTTP headers set above
     $file = file_get_contents($remote_url, false, $context);
     $data = json_decode($file, true);
-    $fp = fopen('csv/'.$date.'.csv', 'w');
+    $fp = fopen('/var/www/html/its-api/public/dep/csv/'.$date.'.csv', 'w');
     foreach($data['Bldgs'] as $Building){
         $row = [];
         $row[] = $Building['BBL'];
