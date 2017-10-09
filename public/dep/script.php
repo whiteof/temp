@@ -1,5 +1,4 @@
 <?php
-
     $date = date('Y-m-d', strtotime('-4 days', time()));
 
     $username = 'brianholtz44';
@@ -32,5 +31,18 @@
         fputcsv($fp, $row);
     }
     fclose($fp);
+
+    // connect and login to FTP server
+    $ftp_server = "157.139.225.137";
+    $ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
+    $login = ftp_login($ftp_conn, "svc_ftp", "svc_ftp_2017");
+    ftp_pasv($ftp_conn, true);
+    $file = '/var/www/html/its-api/public/dep/csv/'.$date.'.csv';
+
+    // upload file
+    ftp_put($ftp_conn, $date.'.csv', $file, FTP_ASCII);
+
+    // close connection
+    ftp_close($ftp_conn);
 
 ?>
